@@ -30,7 +30,7 @@ class RegisterController extends BaseController
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-        $success['token'] = $user->createToken('MySecretKey')->plainTextToken;
+        $success['token'] = $user->createToken(env('MY_SECRET_KEY_AUTH_API'))->plainTextToken;
         $success['name'] = $user->name;
         return $this->sendResponse($success, 'User  registered successfully !');
     }
@@ -43,7 +43,7 @@ class RegisterController extends BaseController
     public function login(Request $request){
         if(Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
             $user = Auth::user();
-            $success['token'] = $user->createToken('MySecretKey')->plainTextToken;
+            $success['token'] = $user->createToken(env('MY_SECRET_KEY_AUTH_API'))->plainTextToken;
             $success['name'] = $user->name;
             return $this->sendResponse($success,'User logged in successfully !');
         } else {
