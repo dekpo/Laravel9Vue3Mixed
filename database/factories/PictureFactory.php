@@ -17,7 +17,11 @@ class PictureFactory extends Factory
     public function definition()
     {
         return [
-            //
+           'author' => $this->faker->name(),
+           'title'  => $this->faker->sentence(5),
+           'description' => $this->faker->text(),
+           'url' => $this->faker->imageUrl(640,480,$this->faker->words(2,true), true),
+           'like' => $this->faker->numberBetween(0,10)
         ];
     }
 }
