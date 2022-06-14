@@ -12,9 +12,16 @@ class PictureController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Picture::all();
+        // http://127.0.0.1:8000/api/picture?page=2&limit=2
+        $page = $request->has('page') ? $request->get('page') : 1;
+        $limit = $request->has('limit') ? $request->get('limit')  : 6;
+        $offset = ($page-1)*$limit;
+        return Picture::orderBy('created_at','Asc') // ::paginate()
+        ->limit($limit)
+        ->offset($offset)
+        ->get();
     }
 
     /**
@@ -25,7 +32,9 @@ class PictureController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if( Picture::create( $request->all() ) ){
+            return "New picture created successfully !";
+        }
     }
 
     /**
@@ -36,7 +45,7 @@ class PictureController extends Controller
      */
     public function show(Picture $picture)
     {
-        //
+       return $picture;
     }
 
     /**
@@ -48,7 +57,9 @@ class PictureController extends Controller
      */
     public function update(Request $request, Picture $picture)
     {
-        //
+        if ($picture->update($request->all())){
+            return "Picture updated successfully !";
+        }
     }
 
     /**
@@ -59,6 +70,8 @@ class PictureController extends Controller
      */
     public function destroy(Picture $picture)
     {
-        //
+        if ($picture->delete()){
+            return 'Picture deleted successfully !';
+        }
     }
 }
