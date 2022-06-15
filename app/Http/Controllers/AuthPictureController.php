@@ -6,6 +6,8 @@ use App\Models\Picture;
 use Illuminate\Http\Request;
 use  Illuminate\Support\Facades\Validator;
 
+use App\Http\Resources\PictureResource;
+
 class AuthPictureController extends BaseController
 {
     /**
@@ -44,7 +46,7 @@ class AuthPictureController extends BaseController
         }
 
         $picture = Picture::create( $input );
-        return 'Picture created successfully';
+        return $this->sendResponse(new PictureResource($picture),'Picture created successfully !');
     }
 
     /**
