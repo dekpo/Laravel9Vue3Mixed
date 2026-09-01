@@ -7,7 +7,7 @@ Small demo wiring **Laravel 9** and **Vue 3** in the same app: Blade for the pag
 | **Source** | https://github.com/dekpo/Laravel9Vue3Mixed |
 | Stack | PHP, Laravel 9, Vue 3, Laravel Mix |
 
-Training project: one Vue app mounted on `#app` inside the Laravel welcome view.
+Training project: one Vue app mounted on `#app` inside the Laravel welcome view. Vue root component: `resources/js/App.vue`.
 
 ## Setup
 
